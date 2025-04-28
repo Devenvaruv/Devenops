@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-green
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend-green
+  template:
+    metadata:
+      labels:
+        app: frontend-green
+    spec:
+      containers:
+        - name: frontend
+          image: 179235553979.dkr.ecr.us-east-1.amazonaws.com/devenvaruv/frontend:v1.0.1
+          ports:
+            - containerPort: 80

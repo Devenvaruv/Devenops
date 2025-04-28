@@ -18,6 +18,7 @@ function App() {
   return (
     <div>
       <h1>Login</h1>
+      <h2>logout</h2>
       <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" /><br />
       <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" /><br />
       <button onClick={handleLogin}>Login</button>
