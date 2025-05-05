@@ -138,3 +138,68 @@ body {
   background: #4b5563;
   cursor: default;
 }
+
+/* ====== NEW/CHANGED STYLES ======================================= */
+
+/* header */
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #0d0d0d;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
+  padding: 1rem;
+}
+.site-nav a {
+  color: #d8d8d8;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.site-nav a:hover { color: #67e8f9; }
+
+.username {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* plus bar */
+.plus-bar {
+  background: #0d0d0d;
+  border-bottom: 1px solid #222;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.big-plus {
+  background: #67e8f9;
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  font-size: 1.75rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.big-plus:hover { background: #22d3ee; }
+
+/* footer / about */
+.about {
+  padding: 2rem 1rem 4rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* (all other styles from previous answer stay as they were) */

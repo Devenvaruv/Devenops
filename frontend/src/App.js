@@ -12,7 +12,7 @@ export default function App() {
   const [shelf,   setShelf]   = useState([]);   // user’s games
 
   // ---------- visual toggles -----------------------------------------
-  const loggedIn = message === 'Login successful';
+  const loggedIn = true;
   const [showAddPanel, setShowAddPanel] = useState(false);
 
   // ---------- helpers -------------------------------------------------
@@ -64,22 +64,33 @@ export default function App() {
   // -------------------------------------------------------------------
   return (
     <div className="app-frame">
-      {/* ---------------------- HEADER ------------------------------ */}
-      <header className="app-header">
+      {/* ── MAIN HEADER ───────────────────────────────────── */}
+      <header className="main-header">
         <h1 className="logo">GameBoxd</h1>
-        {loggedIn && (
-          <div className="user-tools">
-            <span className="username">{email}</span>
-            <button
-              className="add-btn"
-              title="Add a game"
-              onClick={() => setShowAddPanel(!showAddPanel)}
-            >＋</button>
-          </div>
-        )}
+
+        <nav className="site-nav">
+          <a href="#home">Home</a>
+          <a href="#games">Games</a>
+          <a href="#about">About</a>
+        </nav>
+
+        {loggedIn && <span className="username">{email}</span>}
       </header>
 
-      {/* ---------------------- LOGIN ------------------------------- */}
+      {/* ── PLUS BUTTON (below header) ───────────────────── */}
+      {loggedIn && (
+        <div className="plus-bar">
+          <button
+            className="big-plus"
+            title="Add a game"
+            onClick={() => setShowAddPanel(!showAddPanel)}
+          >
+            ＋
+          </button>
+        </div>
+      )}
+
+      {/* ── LOGIN FORM ───────────────────────────────────── */}
       {!loggedIn && (
         <section className="login-box">
           <input
@@ -98,9 +109,9 @@ export default function App() {
         </section>
       )}
 
-      {/* ---------------------- ADD PANEL --------------------------- */}
+      {/* ── ADD‑GAME PANEL ───────────────────────────────── */}
       {showAddPanel && (
-        <section className="catalog-grid">
+        <section className="catalog-grid" id="games">
           {catalog.map(g => {
             const owned = shelf.some(s => s.id === g.id);
             return (
@@ -121,19 +132,22 @@ export default function App() {
         </section>
       )}
 
-      {/* ---------------------- SHELF ------------------------------- */}
+      {/* ── USER SHELF ───────────────────────────────────── */}
       {loggedIn && shelf.length > 0 && (
-        <section className="shelf-grid">
+        <section className="shelf-grid" id="home">
           {shelf.map(g => (
             <div className="card" key={g.id}>
               <img src={IMG[g.id]} alt={g.title} />
-              <div className="card-overlay">
-                <p>{g.title}</p>
-              </div>
+              <div className="card-overlay"><p>{g.title}</p></div>
             </div>
           ))}
         </section>
       )}
+
+      {/* simple About anchor */}
+      <footer id="about" className="about">
+        <p>GameBoxd is a tiny demo clone of Letterboxd—just for video games.</p>
+      </footer>
     </div>
   );
 }
