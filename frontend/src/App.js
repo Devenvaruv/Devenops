@@ -1,65 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';                 //  ← make sure this is imported
+import React, { useState, useEffect } from "react";
+import "./App.css"; //  ← make sure this is imported
 
 export default function App() {
   // ---------- auth state ---------------------------------------------
-  const [email,    setEmail]    = useState('');
-  const [password, setPassword] = useState('');
-  const [message,  setMessage]  = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   // ---------- data ----------------------------------------------------
-  const [catalog, setCatalog] = useState([]);   // all games
-  const [shelf,   setShelf]   = useState([]);   // user’s games
+  const [catalog, setCatalog] = useState([]); // all games
+  const [shelf, setShelf] = useState([]); // user’s games
 
   // ---------- visual toggles -----------------------------------------
-  const loggedIn = true;
+  const loggedIn = message === 'Login successful';
   const [showAddPanel, setShowAddPanel] = useState(false);
 
   // ---------- helpers -------------------------------------------------
   const IMG = {
-    1: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co6l1v.png', // Zelda
-    2: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co5s2v.png', // GoW
-    3: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co5v4g.png', // Hades
-    4: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co6auk.png', // Elden Ring
-    5: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co5wkh.png'  // Stardew
+    1: "https://images.igdb.com/igdb/image/upload/t_cover_big/co6l1v.png", // Zelda
+    2: "https://images.igdb.com/igdb/image/upload/t_cover_big/co5s2v.png", // GoW
+    3: "https://images.igdb.com/igdb/image/upload/t_cover_big/co5v4g.png", // Hades
+    4: "https://images.igdb.com/igdb/image/upload/t_cover_big/co6auk.png", // Elden Ring
+    5: "https://images.igdb.com/igdb/image/upload/t_cover_big/co5wkh.png", // Stardew
   };
 
   const handleLogin = async () => {
-    const res  = await fetch('/api/login', {
-      method : 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body   : JSON.stringify({ email, password })
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     });
     const data = await res.json();
     setMessage(data.message);
 
-    if (data.message === 'Login successful') {
+    if (data.message === "Login successful") {
       await loadCatalog();
       await loadShelf();
     }
   };
 
   const loadCatalog = async () => {
-    const games = await fetch('data/games').then(r => r.json());               // ← unchanged route
+    const games = await fetch("data/games").then((r) => r.json()); // ← unchanged route
     setCatalog(games);
   };
 
   const loadShelf = async () => {
-    const games = await fetch(`/data/user/${email}/games`).then(r => r.json()); // ← unchanged route
+    const games = await fetch(`/data/user/${email}/games`).then((r) =>
+      r.json()
+    ); // ← unchanged route
     setShelf(games);
   };
 
   const addGame = async (gameId) => {
     await fetch(`/data/user/${email}/games`, {
-      method : 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body   : JSON.stringify({ gameId })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ gameId }),
     });
-    await loadShelf();           // refresh shelf after add
+    await loadShelf(); // refresh shelf after add
   };
 
   // close add panel when shelf updates
-  useEffect(() => { setShowAddPanel(false); }, [shelf]);
+  useEffect(() => {
+    setShowAddPanel(false);
+  }, [shelf]);
 
   // -------------------------------------------------------------------
   return (
@@ -77,31 +81,18 @@ export default function App() {
         {loggedIn && <span className="username">{email}</span>}
       </header>
 
-      {/* ── PLUS BUTTON (below header) ───────────────────── */}
-      {loggedIn && (
-        <div className="plus-bar">
-          <button
-            className="big-plus"
-            title="Add a game"
-            onClick={() => setShowAddPanel(!showAddPanel)}
-          >
-            ＋
-          </button>
-        </div>
-      )}
-
       {/* ── LOGIN FORM ───────────────────────────────────── */}
       {!loggedIn && (
         <section className="login-box">
           <input
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
           />
           <input
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
           <button onClick={handleLogin}>Sign In</button>
@@ -112,18 +103,15 @@ export default function App() {
       {/* ── ADD‑GAME PANEL ───────────────────────────────── */}
       {showAddPanel && (
         <section className="catalog-grid" id="games">
-          {catalog.map(g => {
-            const owned = shelf.some(s => s.id === g.id);
+          {catalog.map((g) => {
+            const owned = shelf.some((s) => s.id === g.id);
             return (
               <div className="card" key={g.id}>
                 <img src={IMG[g.id]} alt={g.title} />
                 <div className="card-overlay">
                   <p>{g.title}</p>
-                  <button
-                    disabled={owned}
-                    onClick={() => addGame(g.id)}
-                  >
-                    {owned ? 'Added' : 'Add'}
+                  <button disabled={owned} onClick={() => addGame(g.id)}>
+                    {owned ? "Added" : "Add"}
                   </button>
                 </div>
               </div>
@@ -133,20 +121,32 @@ export default function App() {
       )}
 
       {/* ── USER SHELF ───────────────────────────────────── */}
-      {loggedIn && shelf.length > 0 && (
+      {loggedIn && (
         <section className="shelf-grid" id="home">
-          {shelf.map(g => (
+          {/* existing games */}
+          {shelf.map((g) => (
             <div className="card" key={g.id}>
               <img src={IMG[g.id]} alt={g.title} />
-              <div className="card-overlay"><p>{g.title}</p></div>
+              <div className="card-overlay">
+                <p>{g.title}</p>
+              </div>
             </div>
           ))}
+
+          {/* add‑game tile (always last in DOM, first when shelf empty) */}
+          <div
+            className="card add-card"
+            onClick={() => setShowAddPanel(!showAddPanel)}
+            title="Add a game"
+          >
+            <span className="big-plus-inline">＋</span>
+          </div>
         </section>
       )}
 
       {/* simple About anchor */}
       <footer id="about" className="about">
-        <p>GameBoxd is a tiny demo clone of Letterboxd—just for video games.</p>
+        <p>GameBoxd is a tiny demo clone of Letterboxd but for video games.</p>
       </footer>
     </div>
   );

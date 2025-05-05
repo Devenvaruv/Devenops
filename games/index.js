@@ -14,7 +14,7 @@ const CATALOG = [
   { id: 5, title: 'Stardew Valley' }
 ];
 
-// --- per‑user shelves -----------------------------------------------
+// --- per‑user shelves ----------------------------------------------
 const shelves = {};   
 
 // Get full catalog
