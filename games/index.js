@@ -5,7 +5,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// --- pretend catalog ---------------------------------------------
+// --- pretend catalog ---------------------------------------------=
 const CATALOG = [
   { id: 1, title: 'The Legend of Zelda: Tears of the Kingdom' },
   { id: 2, title: 'God of War Ragnarök' },

@@ -12,7 +12,7 @@ app.post('/login', (req, res) => {
     res.json({ message: 'Invalid credentials' });
   }
 });
-//-------------------------------------------
+//------------------------------------------
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Auth service listening on port ${PORT}`);
