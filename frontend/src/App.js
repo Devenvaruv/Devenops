@@ -6,7 +6,7 @@ const poster = (title) =>
   `https://picsum.photos/seed/${encodeURIComponent(title)}/120/180`;
 
 function App() {
-  /* --------------------- auth state -------------------------------- */
+  /* --------------------- auth state ---------------------------- */
   const [email,     setEmail]     = useState('');
   const [password,  setPassword]  = useState('');
   const [message,   setMessage]   = useState('');
