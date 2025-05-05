@@ -15,7 +15,7 @@ const CATALOG = [
 ];
 
 // --- per‑user shelves -------------------------------------------------
-const shelves = {};   // key: email, value: Set of gameIds
+const shelves = {};   
 
 // Get full catalog
 app.get('/games', (_req, res) => res.json(CATALOG));

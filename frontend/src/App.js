@@ -26,7 +26,7 @@ function App() {
   };
 
   const loadCatalog = async () => {
-    const games = await fetch('/games').then(r => r.json());
+    const games = await fetch('/games/').then(r => r.json());
     setCatalog(games);
   };
 
