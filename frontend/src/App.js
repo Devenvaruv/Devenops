@@ -144,9 +144,9 @@ export default function App() {
       )}
 
      
-      {/* <footer id="about" className="about">
+      <footer id="about" className="about">
         <p>GameBoxd is a tiny demo clone of Letterboxd but for video games.</p>
-      </footer> */}
+      </footer>
     </div>
   );
 }
