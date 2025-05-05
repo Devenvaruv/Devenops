@@ -78,7 +78,7 @@ export default function App() {
           <a href="#about">About</a>
         </nav>
 
-        {loggedIn && <span className="username">{email}</span>}
+        {loggedIn && <span className="username">Deven</span>}
       </header>
 
       {/* ── LOGIN FORM ───────────────────────────────────── */}
@@ -133,7 +133,6 @@ export default function App() {
             </div>
           ))}
 
-          {/* add‑game tile (always last in DOM, first when shelf empty) */}
           <div
             className="card add-card"
             onClick={() => setShowAddPanel(!showAddPanel)}
@@ -144,10 +143,10 @@ export default function App() {
         </section>
       )}
 
-      {/* simple About anchor */}
-      <footer id="about" className="about">
+     
+      {/* <footer id="about" className="about">
         <p>GameBoxd is a tiny demo clone of Letterboxd but for video games.</p>
-      </footer>
+      </footer> */}
     </div>
   );
 }
