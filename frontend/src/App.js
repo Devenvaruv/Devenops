@@ -26,17 +26,17 @@ function App() {
   };
 
   const loadCatalog = async () => {
-    const games = await fetch('/games/').then(r => r.json());
+    const games = await fetch('data/games').then(r => r.json());
     setCatalog(games);
   };
 
   const loadShelf = async () => {
-    const games = await fetch(`/games/user/${email}/games`).then(r => r.json());
+    const games = await fetch(`/data/user/${email}/games`).then(r => r.json());
     setShelf(games);
   };
 
   const addGame = async (gameId) => {
-    await fetch(`/games/user/${email}/games`, {
+    await fetch(`/data/user/${email}/games`, {
       method : 'POST',
       headers: { 'Content-Type': 'application/json' },
       body   : JSON.stringify({ gameId })
