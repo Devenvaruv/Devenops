@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-/* ------------- helper: simple poster lookup ----------------------- */
+/* ------------- helper: simple poster lookup ---------------------- */
 const poster = (title) =>
   // quick & dirty: “https://picsum.photos/seed/<slug>/120/180”
   `https://picsum.photos/seed/${encodeURIComponent(title)}/120/180`;
